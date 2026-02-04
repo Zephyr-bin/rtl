@@ -15,6 +15,8 @@ module mac_pe (
 );
 
     reg signed [7:0] weight_reg;
+    reg signed [7:0] mul_out;
+    reg signed [23:0] temp_sum;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -31,7 +33,9 @@ module mac_pe (
             else begin
                 out_a <= in_a;
                 // MAC: Sum = Sum + (A * W)
-                out_sum <= in_sum + (in_a * weight_reg[3:0]) << weight_reg[7:4];
+                mul_out <= in_a * weight_reg[3:0]; // 4-bit weight
+                temp_sum <= mul_out << weight_reg[7:4]; // Shift according to upper 4 bits
+                out_sum <= in_sum + temp_sum;
             end
         end
     end
