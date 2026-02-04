@@ -228,7 +228,7 @@ module top_compute_core (
         .array_out_valid     (array_out_valid), // 使用我们手动延迟 32 拍的信号
         
         // 配置
-        .global_scale_factor (global_scale),
+        .col_scale_factor (global_scale),
         
         // 输出
         .fp16_out_diagonal   (post_out_fp16),
